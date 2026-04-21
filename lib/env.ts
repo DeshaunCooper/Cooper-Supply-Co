@@ -1,17 +1,17 @@
 import { z } from "zod";
 
 const schema = z.object({
-  NEXT_PUBLIC_SITE_URL: z.string().url(),
-  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1),
-  STRIPE_SECRET_KEY: z.string().min(1),
-  STRIPE_WEBHOOK_SECRET: z.string().min(1),
+  NEXT_PUBLIC_SITE_URL: z.url(),
+  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1).optional(),
+  STRIPE_SECRET_KEY: z.string().min(1).optional(),
+  STRIPE_WEBHOOK_SECRET: z.string().min(1).optional(),
   NEXT_PUBLIC_AFFIRM_PUBLIC_API_KEY: z.string().min(1).optional(),
   AFFIRM_PRIVATE_API_KEY: z.string().min(1).optional(),
-  NEXT_PUBLIC_AFFIRM_JS_URL: z.string().url().optional(),
+  NEXT_PUBLIC_AFFIRM_JS_URL: z.url().optional(),
   PRINTFUL_API_KEY: z.string().min(1).optional(),
   PRINTIFY_API_KEY: z.string().min(1).optional(),
   ARTSADD_API_KEY: z.string().optional(),
-  ARTSADD_BASE_URL: z.string().url().optional(),
+  ARTSADD_BASE_URL: z.url().optional(),
   PRINTIFY_SHOP_ID: z.string().optional(),
 });
 
