@@ -10,10 +10,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
   }
 
+  const siteUrl = env.NEXT_PUBLIC_SITE_URL
+    ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
-    success_url: `${env.NEXT_PUBLIC_SITE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${env.NEXT_PUBLIC_SITE_URL}/checkout/cancel`,
+    success_url: `${siteUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${siteUrl}/checkout/cancel`,
     line_items: items.map((item) => ({
       quantity: item.quantity,
       price_data: {

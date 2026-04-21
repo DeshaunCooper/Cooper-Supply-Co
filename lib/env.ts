@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const schema = z.object({
-  NEXT_PUBLIC_SITE_URL: z.url(),
+  NEXT_PUBLIC_SITE_URL: z.url().optional(),
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1).optional(),
   STRIPE_SECRET_KEY: z.string().min(1).optional(),
   STRIPE_WEBHOOK_SECRET: z.string().min(1).optional(),
