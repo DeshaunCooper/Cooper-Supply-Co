@@ -1,7 +1,7 @@
 import { products } from "@/data/products";
 import { ProductCard } from "@/components/product/product-card";
 import { SectionLabel } from "@/components/shared/section-label";
-import { MascotInline } from "@/components/mascot/mascot-inline";
+import Image from "next/image";
 
 export function EssentialsSection() {
   return (
@@ -30,8 +30,8 @@ export function MascotStorySection() {
         </div>
         <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,#1a1a1a,#0d0d0d)] p-8 shadow-2xl">
           <div className="flex items-center gap-8">
-            <div className="rounded-[2rem] border border-white/10 bg-[#F5F0E6] px-10 py-8">
-              <MascotInline className="scale-[1.5]" />
+            <div className="rounded-[2rem] border border-white/10 bg-black p-4">
+              <Image src="/images/mascot/mascot-idle.png" alt="Cooper Supply mascot" width={200} height={200} className="rounded-[1.5rem]" />
             </div>
             <div>
               <div className="text-[11px] uppercase tracking-[0.32em] text-white/45">Brand Character System</div>

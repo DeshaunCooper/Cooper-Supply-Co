@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { MascotInline } from "@/components/mascot/mascot-inline";
+import { MascotSprite } from "@/components/mascot/mascot-sprite";
 import { useGsapHero } from "@/hooks/use-gsap-hero";
 
 const ProductWheel = dynamic(
@@ -39,7 +39,7 @@ export function Hero() {
             </Link>
           </div>
           <div data-mascot className="mt-10">
-            <MascotInline />
+            <MascotSprite />
           </div>
         </div>
         <div data-wheel>
