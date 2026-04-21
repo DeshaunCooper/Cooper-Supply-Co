@@ -13,28 +13,47 @@ export function ProductGrid({ products }: { products: Product[] }) {
     return products.filter((p) => {
       const matchesCategory = category === "All" || p.category === category;
       const q = query.trim().toLowerCase();
-      const matchesQuery = !q || [p.name, p.shortName, p.tag, p.supplier, p.category].join(" ").toLowerCase().includes(q);
+      const matchesQuery = !q || [p.name, p.shortName, p.tag, p.category].join(" ").toLowerCase().includes(q);
       return matchesCategory && matchesQuery;
     });
   }, [products, query, category]);
 
   return (
     <>
-      <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search products" className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm outline-none" />
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search products"
+          className="w-full max-w-xs rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm outline-none placeholder:text-black/30 focus:border-black/25"
+        />
         <div className="flex flex-wrap gap-2">
           {categories.map((c) => (
-            <button key={c} onClick={() => setCategory(c)} className={category === c ? "rounded-full bg-black px-4 py-2 text-xs font-bold uppercase text-white" : "rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-bold uppercase text-black/70"}>
+            <button
+              key={c}
+              onClick={() => setCategory(c)}
+              className={
+                category === c
+                  ? "rounded-full bg-black px-4 py-2 text-[10px] font-bold uppercase tracking-[0.18em] text-white"
+                  : "rounded-full border border-black/10 bg-white px-4 py-2 text-[10px] font-bold uppercase tracking-[0.18em] text-black/55 transition-colors hover:border-black/25 hover:text-black"
+              }
+            >
               {c}
             </button>
           ))}
         </div>
       </div>
-      <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {filtered.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      {filtered.length === 0 ? (
+        <div className="mt-16 text-center">
+          <p className="font-display text-3xl uppercase text-black/20">Nothing matched.</p>
+        </div>
+      ) : (
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {filtered.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
     </>
   );
 }
