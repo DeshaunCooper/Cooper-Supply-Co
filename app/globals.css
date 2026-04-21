@@ -25,3 +25,12 @@ body {
   animation: marquee 32s linear infinite;
   will-change: transform;
 }
+
+@keyframes menu-slide-down {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+
+.animate-menu-in {
+  animation: menu-slide-down 0.22s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
