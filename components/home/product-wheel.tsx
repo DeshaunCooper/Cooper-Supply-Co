@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { Environment, Float, Html } from "@react-three/drei";
+import { Float, Html } from "@react-three/drei";
 import { products } from "@/data/products";
 
 function WheelItem({ index, total, label, color }: { index: number; total: number; label: string; color: string }) {
@@ -41,7 +41,6 @@ export function ProductWheel() {
             <WheelItem key={item.id} index={index} total={wheelItems.length} label={item.shortName} color={item.color} />
           ))}
         </group>
-        <Environment preset="warehouse" />
       </Canvas>
     </div>
   );
