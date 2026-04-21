@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { products } from "@/data/products";
+import { getProducts } from "@/lib/products";
 import { SectionLabel } from "@/components/shared/section-label";
 
 type CategoryCard = {
@@ -37,7 +37,9 @@ const CATEGORIES: CategoryCard[] = [
   },
 ];
 
-export default function CollectionsPage() {
+export default async function CollectionsPage() {
+  const products = await getProducts();
+
   return (
     <main>
       <section className="bg-black px-5 pb-12 pt-28 text-white md:px-6 md:pt-32">

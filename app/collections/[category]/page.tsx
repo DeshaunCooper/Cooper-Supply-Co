@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { products } from "@/data/products";
+import { getProducts } from "@/lib/products";
 import { ProductCard } from "@/components/product/product-card";
 import { SectionLabel } from "@/components/shared/section-label";
 import { CollectionFilter } from "@/components/collection/collection-filter";
@@ -38,15 +38,12 @@ type Props = {
   params: Promise<{ category: string }>;
 };
 
-export function generateStaticParams() {
-  return Object.keys(CATEGORY_META).map((category) => ({ category }));
-}
-
 export default async function CategoryPage({ params }: Props) {
   const { category } = await params;
   const meta = CATEGORY_META[category.toLowerCase()];
   if (!meta) notFound();
 
+  const products = await getProducts();
   const categoryProducts = products.filter(
     (p) => p.category.toLowerCase() === meta.name.toLowerCase()
   );

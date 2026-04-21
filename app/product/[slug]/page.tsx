@@ -1,11 +1,11 @@
 import { notFound } from "next/navigation";
-import { getProductBySlug } from "@/data/products";
+import { getProductBySlug } from "@/lib/products";
 import { ProductGallery } from "@/components/product/product-gallery";
 import { ProductPurchasePanel } from "@/components/product/product-purchase-panel";
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
   if (!product) notFound();
 
   return (

@@ -1,10 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import { products } from "@/data/products";
+import { getProducts } from "@/lib/products";
 import { ProductCard } from "@/components/product/product-card";
 import { SectionLabel } from "@/components/shared/section-label";
 
-export function EssentialsSection() {
+export async function EssentialsSection() {
+  const products = await getProducts();
   const featured = products.filter((p) => p.featured);
   return (
     <section className="px-5 py-16 md:px-6">

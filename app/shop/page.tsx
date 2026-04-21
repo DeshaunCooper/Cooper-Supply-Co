@@ -1,8 +1,10 @@
-import { products } from "@/data/products";
+import { getProducts } from "@/lib/products";
 import { ProductGrid } from "@/components/product/product-grid";
 import { SectionLabel } from "@/components/shared/section-label";
 
-export default function ShopPage() {
+export default async function ShopPage() {
+  const products = await getProducts();
+
   return (
     <main>
       <section className="bg-black px-5 pb-12 pt-28 text-white md:px-6 md:pt-32">

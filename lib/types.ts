@@ -22,6 +22,7 @@ export type Product = {
   images: string[];
   sizes: string[];
   materials: string[];
+  available?: boolean;
   featured?: boolean;
   wheel?: boolean;
   externalProductId?: string;

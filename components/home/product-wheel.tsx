@@ -2,7 +2,7 @@
 
 import { Canvas } from "@react-three/fiber";
 import { Float, Html } from "@react-three/drei";
-import { products } from "@/data/products";
+import type { Product } from "@/lib/types";
 
 function WheelItem({ index, total, label, color }: { index: number; total: number; label: string; color: string }) {
   const angle = (index / total) * Math.PI * 2;
@@ -27,7 +27,7 @@ function WheelItem({ index, total, label, color }: { index: number; total: numbe
   );
 }
 
-export function ProductWheel() {
+export function ProductWheel({ products }: { products: Product[] }) {
   const wheelItems = products.filter((p) => p.wheel);
 
   return (
