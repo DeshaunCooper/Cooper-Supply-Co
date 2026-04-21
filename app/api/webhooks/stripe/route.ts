@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { env } from "@/lib/env";
 import { routeSupplierOrders } from "@/lib/suppliers";
 import type { CartItem, Supplier } from "@/lib/types";
@@ -12,6 +12,7 @@ export async function POST(req: Request) {
   if (!signature) return NextResponse.json({ error: "Missing signature" }, { status: 400 });
   if (!env.STRIPE_WEBHOOK_SECRET) return NextResponse.json({ error: "Webhook not configured" }, { status: 500 });
 
+  const stripe = getStripe();
   const event = stripe.webhooks.constructEvent(body, signature, env.STRIPE_WEBHOOK_SECRET);
 
   if (event.type === "checkout.session.completed") {
