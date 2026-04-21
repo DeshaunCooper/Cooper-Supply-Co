@@ -3,44 +3,34 @@ import Link from "next/link";
 import { products } from "@/data/products";
 import { ProductCard } from "@/components/product/product-card";
 import { SectionLabel } from "@/components/shared/section-label";
+import { CollectionFilter } from "@/components/collection/collection-filter";
 import type { Product } from "@/lib/types";
 
-type SubcategoryGroup = {
-  label: string;
-  tags: string[];
-};
-
-type CategoryConfig = {
+type CategoryMeta = {
   name: string;
   description: string;
-  subcategories: SubcategoryGroup[];
 };
 
-const CATEGORY_CONFIG: Record<string, CategoryConfig> = {
+const CATEGORY_META: Record<string, CategoryMeta> = {
   headwear: {
     name: "Headwear",
     description: "Structured caps, dad hats, and statement pieces.",
-    subcategories: [
-      { label: "Everyday Essentials", tags: ["Signature Hat", "Everyday Hat", "Daily Rotation"] },
-      { label: "Statement Pieces", tags: ["Statement Hat"] },
-      { label: "Heritage Series", tags: ["Heritage Series"] },
-    ],
   },
   outerwear: {
     name: "Outerwear",
-    description: "Jackets and hoodies built for movement.",
-    subcategories: [
-      { label: "Hoodies", tags: ["Daily Layer"] },
-      { label: "Jackets & Workwear", tags: ["Heavy Duty", "Utility"] },
-      { label: "Varsity", tags: ["Heritage Series"] },
-    ],
+    description: "Hoodies, jackets, varsity builds, and workwear.",
+  },
+  bags: {
+    name: "Bags",
+    description: "Totes, duffels, crossbody, and everyday carry.",
   },
   accessories: {
     name: "Accessories",
-    description: "Premium graphic goods and collectibles.",
-    subcategories: [
-      { label: "Home Goods", tags: ["Home Goods"] },
-    ],
+    description: "Premium woven blankets and collectibles.",
+  },
+  home: {
+    name: "Home",
+    description: "Rugs, art prints, and home goods.",
   },
 };
 
@@ -49,32 +39,31 @@ type Props = {
 };
 
 export function generateStaticParams() {
-  return Object.keys(CATEGORY_CONFIG).map((category) => ({ category }));
+  return Object.keys(CATEGORY_META).map((category) => ({ category }));
 }
 
 export default async function CategoryPage({ params }: Props) {
   const { category } = await params;
-  const config = CATEGORY_CONFIG[category.toLowerCase()];
-  if (!config) notFound();
+  const meta = CATEGORY_META[category.toLowerCase()];
+  if (!meta) notFound();
 
   const categoryProducts = products.filter(
-    (p) => p.category.toLowerCase() === config.name.toLowerCase()
+    (p) => p.category.toLowerCase() === meta.name.toLowerCase()
   );
 
-  // Build subcategory sections; collect matched product IDs to catch any leftovers
-  const matched = new Set<string>();
+  // Derive unique subcategories in insertion order
+  const subcategories = [...new Set(categoryProducts.map((p) => p.subcategory))];
 
-  const sections: { label: string; items: Product[] }[] = config.subcategories
-    .map(({ label, tags }) => {
-      const items = categoryProducts.filter((p) => tags.includes(p.tag));
-      items.forEach((p) => matched.add(p.id));
-      return { label, items };
-    })
-    .filter((s) => s.items.length > 0);
+  // Derive unique collections in this category
+  const collections = [
+    ...new Set(categoryProducts.map((p) => p.collection).filter(Boolean) as string[]),
+  ];
 
-  // Any products not matched by a subcategory go into "Other"
-  const unmatched = categoryProducts.filter((p) => !matched.has(p.id));
-  if (unmatched.length > 0) sections.push({ label: "Other", items: unmatched });
+  // Build subcategory sections for SSR render (full unfiltered view)
+  const sections = subcategories.map((sub) => ({
+    label: sub,
+    items: categoryProducts.filter((p) => p.subcategory === sub),
+  }));
 
   return (
     <main>
@@ -86,31 +75,37 @@ export default async function CategoryPage({ params }: Props) {
           >
             ← Collections
           </Link>
-          <SectionLabel light>{config.name}</SectionLabel>
+          <SectionLabel light>{meta.name}</SectionLabel>
           <h1 className="font-display text-[clamp(3rem,10vw,7rem)] uppercase leading-[0.88]">
-            {config.name}
+            {meta.name}
           </h1>
-          <p className="mt-3 text-sm text-white/45">{config.description}</p>
+          <p className="mt-3 max-w-sm text-sm text-white/45">{meta.description}</p>
         </div>
       </section>
 
       <section className="px-5 py-12 md:px-6">
-        <div className="mx-auto max-w-6xl space-y-16">
-          {sections.map(({ label, items }) => (
-            <div key={label}>
-              <div className="mb-6 flex items-center gap-4">
-                <h2 className="font-display text-2xl uppercase leading-none">{label}</h2>
-                <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-black/30">
-                  {items.length} item{items.length !== 1 ? "s" : ""}
-                </span>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                {items.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
+        <div className="mx-auto max-w-6xl">
+          {categoryProducts.length === 0 ? (
+            <div className="rounded-2xl border border-black/8 bg-white p-12 text-center">
+              <div className="font-display text-3xl uppercase text-black/20">Coming Soon</div>
+              <p className="mt-2 text-sm text-black/40">
+                New {meta.name.toLowerCase()} arriving. Check back soon.
+              </p>
+              <Link
+                href="/collections"
+                className="mt-6 inline-block text-[10px] font-bold uppercase tracking-[0.25em] text-black/40 underline-offset-2 hover:text-black"
+              >
+                ← Back to Collections
+              </Link>
             </div>
-          ))}
+          ) : (
+            <CollectionFilter
+              allProducts={categoryProducts}
+              subcategories={subcategories}
+              collections={collections}
+              initialSections={sections}
+            />
+          )}
         </div>
       </section>
     </main>
