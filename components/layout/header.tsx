@@ -11,6 +11,7 @@ const NAV = [
   { href: "/collections", label: "Collections" },
   { href: "/brands/collegiate-hbcu", label: "Collegiate HBCU" },
   { href: "/brands/child-of-god", label: "Child of God" },
+  { href: "/give", label: "Give" },
   { href: "/custom", label: "Custom" },
   { href: "/about", label: "About" },
 ];

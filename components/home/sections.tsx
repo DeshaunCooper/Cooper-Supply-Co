@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getProducts } from "@/lib/products";
 import { ProductCard } from "@/components/product/product-card";
 import { SectionLabel } from "@/components/shared/section-label";
+import { CreativesClubCard } from "@/components/home/creatives-club-card";
 
 export async function EssentialsSection() {
   const products = await getProducts();
@@ -66,6 +67,43 @@ export function MascotStorySection() {
                 The mascot is the memory device.
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function CreativesClubSection() {
+  return (
+    <section className="bg-[#080808] px-5 py-16 md:px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          {/* Card */}
+          <div className="flex justify-center">
+            <CreativesClubCard />
+          </div>
+
+          {/* Copy */}
+          <div>
+            <div className="mb-3 inline-block rounded-full border border-[#b8945a]/30 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.3em] text-[#b8945a]">
+              Cooper Supply Co. Initiative
+            </div>
+            <h2 className="font-display text-[clamp(2.5rem,6vw,4rem)] uppercase leading-[0.88] text-white">
+              Black Creatives Club
+            </h2>
+            <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-white/45">
+              For Black creatives. For everyone. Fund a vision, offer a connection, or show up as a collaborator.
+            </p>
+            <p className="mt-2 text-sm font-semibold uppercase tracking-[0.2em] text-[#b8945a]/60">
+              The culture moves when we move together.
+            </p>
+            <Link
+              href="/give"
+              className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#b8945a] px-7 py-3.5 text-[11px] font-bold uppercase tracking-[0.25em] text-black transition-opacity hover:opacity-85"
+            >
+              Support the Club →
+            </Link>
           </div>
         </div>
       </div>

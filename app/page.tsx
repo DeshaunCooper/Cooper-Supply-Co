@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { Hero } from "@/components/home/hero";
-import { EssentialsSection, MascotStorySection, NewsletterSection } from "@/components/home/sections";
+import { EssentialsSection, MascotStorySection, CreativesClubSection, NewsletterSection } from "@/components/home/sections";
 
 export default function HomePage() {
   return (
@@ -9,6 +9,7 @@ export default function HomePage() {
       <Hero />
       <EssentialsSection />
       <MascotStorySection />
+      <CreativesClubSection />
       <NewsletterSection />
     </>
   );
