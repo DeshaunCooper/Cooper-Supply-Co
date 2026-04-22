@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getProducts } from "@/lib/products";
 import { ProductGrid } from "@/components/product/product-grid";
 import { SectionLabel } from "@/components/shared/section-label";
