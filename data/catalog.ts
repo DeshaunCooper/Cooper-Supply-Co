@@ -324,7 +324,6 @@ export const catalog: Record<string, CatalogEntry> = {
     featured: false,
     wheel: false,
   },
-};
 
   // ── BAGS ──────────────────────────────────────────────────────────────────
   "69e80d4f6b94b975240042b5": {
