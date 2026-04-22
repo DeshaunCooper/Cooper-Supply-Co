@@ -12,19 +12,16 @@ const PRESETS = [
 
 const COLLABS = [
   {
-    icon: "🤝",
     title: "Networking Intro",
     desc: "Connect us with the right people — an introduction is sometimes the most powerful thing.",
     cta: "Offer a Connection",
   },
   {
-    icon: "📅",
     title: "Business Meeting",
     desc: "Book a strategy session. Bring your expertise to the table and help shape the next move.",
     cta: "Schedule a Meeting",
   },
   {
-    icon: "⚡",
     title: "Creative Collaboration",
     desc: "Partner on a project — design, content, music, photography, architecture, whatever you bring.",
     cta: "Propose a Collab",
@@ -224,13 +221,12 @@ export default function GivePage() {
           </p>
 
           <div className="mt-8 space-y-3">
-            {COLLABS.map(({ icon, title, desc, cta }) => (
+            {COLLABS.map(({ title, desc, cta }) => (
               <a
                 key={title}
                 href={`mailto:Hello@wedesignsstudio.com?subject=${encodeURIComponent(`Black Creatives Club — ${title}`)}&body=${encodeURIComponent(`Hi,\n\nI'd like to offer: ${title}\n\n`)}`}
                 className="group flex items-start gap-5 rounded-2xl border border-white/8 bg-white/[0.03] p-6 transition-all hover:border-[#b8945a]/40 hover:bg-white/[0.06]"
               >
-                <span className="mt-0.5 text-2xl">{icon}</span>
                 <div className="flex-1">
                   <div className="font-display text-lg uppercase leading-none text-white">
                     {title}

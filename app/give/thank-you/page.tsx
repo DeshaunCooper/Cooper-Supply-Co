@@ -3,7 +3,6 @@ import Link from "next/link";
 export default function ThankYouPage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-[#080808] px-5 text-center">
-      <div className="mb-6 text-5xl">🖤</div>
       <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.35em] text-[#b8945a]">
         Black Creatives Club
       </div>
