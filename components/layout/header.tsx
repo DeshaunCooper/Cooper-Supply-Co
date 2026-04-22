@@ -9,6 +9,8 @@ const NAV = [
   { href: "/shop", label: "Shop" },
   { href: "/drops", label: "Drops" },
   { href: "/collections", label: "Collections" },
+  { href: "/brands/collegiate-hbcu", label: "Collegiate HBCU" },
+  { href: "/brands/child-of-god", label: "Child of God" },
   { href: "/custom", label: "Custom" },
   { href: "/about", label: "About" },
 ];
@@ -35,7 +37,7 @@ export function Header() {
             Cooper Supply Co.
           </Link>
 
-          <nav className="hidden items-center gap-6 md:flex">
+          <nav className="hidden items-center gap-4 md:flex lg:gap-6">
             {NAV.map(({ href, label }) => (
               <Link
                 key={href}
