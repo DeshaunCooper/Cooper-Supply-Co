@@ -326,6 +326,47 @@ export const catalog: Record<string, CatalogEntry> = {
   },
 };
 
+  // ── BAGS ──────────────────────────────────────────────────────────────────
+  "69e80d4f6b94b975240042b5": {
+    id: "bag-bbd",
+    slug: "big-billions-duffle",
+    shortName: "Big Billions Duffle",
+    sku: "CSC-PI-BAG-BBD",
+    supplier: "Printify",
+    category: "Bags",
+    subcategory: "Duffle Bags",
+    collection: "Thermal Collection",
+    drop: "Spring SZN",
+    tags: ["duffle", "bag", "big billions", "thermal collection", "spring", "travel", "carry"],
+    tag: "Thermal Collection",
+    badge: "New Drop",
+    color: "#1a1a1a",
+    accent: "#F5F0E6",
+    materials: ["Premium fabric", "Zipper closure", "Carry handles"],
+    featured: true,
+    wheel: false,
+  },
+  "69e81a93889e95681601111b": {
+    id: "bag-bblc",
+    slug: "big-billions-luggage-carry-on",
+    shortName: "Big Billions Carry On",
+    sku: "CSC-PI-BAG-BBLC",
+    supplier: "Printify",
+    category: "Bags",
+    subcategory: "Luggage",
+    collection: "Thermal Collection",
+    drop: "Spring SZN",
+    tags: ["luggage", "carry on", "big billions", "thermal collection", "spring", "travel", "suitcase"],
+    tag: "Thermal Collection",
+    badge: "New Drop",
+    color: "#1a1a1a",
+    accent: "#F5F0E6",
+    materials: ["Hard shell", "Spinner wheels", "TSA lock"],
+    featured: true,
+    wheel: false,
+  },
+};
+
 export function getCatalogEntry(printifyProductId: string): CatalogEntry | undefined {
   return catalog[printifyProductId];
 }
