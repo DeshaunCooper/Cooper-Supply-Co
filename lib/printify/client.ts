@@ -40,7 +40,7 @@ export async function fetchAllProducts(): Promise<PrintifyProduct[]> {
 
   while (true) {
     const data = await pfyFetch<PrintifyProductsPage>(
-      `/shops/${shopId()}/products.json?limit=100&page=${page}`
+      `/shops/${shopId()}/products.json?limit=50&page=${page}`
     );
     all.push(...data.data);
     if (data.current_page >= data.last_page) break;
